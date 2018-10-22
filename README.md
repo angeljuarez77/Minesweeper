@@ -3,4 +3,4 @@ __MVP__:Having the board load with a set amount of bombs and random placement th
 
 Specs:
 *thing
-*thing
+thing
