@@ -2,7 +2,7 @@ const board = [
   [null, true, true, true],
   [null, null, null, true],
   [true, true, null, true],
-  [true, null, null, null]
+  [true, true, null, null]
 ];
 
 const checkNeighbors = (x,y) => {
@@ -28,7 +28,7 @@ const checkNeighbors = (x,y) => {
     if (below) {neighboringBombs++};
     if (bottomRight) {neighboringBombs++};
 
-    return console.log(neighboringBombs);
+    return neighboringBombs;
   } else if (x === 0 && y !== 0 && y !== board.length - 1) {
     // left side no corner
     let topNeighbor = board[y - 1][x];
@@ -43,7 +43,7 @@ const checkNeighbors = (x,y) => {
     if (below) {neighboringBombs++};
     if (bottomRight) {neighboringBombs++};
 
-    return console.log(neighboringBombs);
+    return neighboringBombs;
   } else if (x === board[0].length - 1 && y !== 0 && y !== board.length - 1) {
     // right side square. non corner
     let topLeft = board[y - 1][x - 1];
@@ -58,7 +58,7 @@ const checkNeighbors = (x,y) => {
     if (bottomLeft) {neighboringBombs++};
     if (below) {neighboringBombs++};
 
-    return console.log(neighboringBombs);
+    return neighboringBombs;
   } else if (x !== board[0].length - 1 && y === 0 && x !== 0) {
     // top side no corner
     let leftNeighbor = board[y][x - 1];
@@ -73,7 +73,7 @@ const checkNeighbors = (x,y) => {
     if (below) {neighboringBombs++};
     if (bottomRight) {neighboringBombs++};
 
-    return console.log(neighboringBombs);
+    return neighboringBombs;
   } else if (y === board.length - 1 && x !== 0 && x !== board[0].length -1) {
     // bottom side no corner
     let topLeft = board[y - 1][x - 1];
@@ -88,7 +88,7 @@ const checkNeighbors = (x,y) => {
     if (leftNeighbor) {neighboringBombs++};
     if (rightNeighbor) {neighboringBombs++};
 
-    return console.log(neighboringBombs);
+    return neighboringBombs;
   } else if (x === 0 && y === 0) {
     // top left corner
     let rightNeighbor = board[y][x + 1];
@@ -99,8 +99,9 @@ const checkNeighbors = (x,y) => {
     if (below) {neighboringBombs++};
     if (bottomRight) {neighboringBombs++};
 
-    return console.log(neighboringBombs);
-  } else if (y === board.length[0] - 1 && x === 0) {
+    return neighboringBombs;
+    // debugger;
+  } else if (y === board.length - 1 && x === 0) {
     // bottom left corner
     let topNeighbor = board[y - 1][x];
     let topRight = board[y - 1][x + 1];
@@ -110,7 +111,7 @@ const checkNeighbors = (x,y) => {
     if (topRight) {neighboringBombs++};
     if (rightNeighbor) {neighboringBombs++};
 
-    return console.log(neighboringBombs);
+    return neighboringBombs;
   } else if (x === board[0].length - 1 && y === 0) {
     // top right corner
     let leftNeighbor = board[y][x - 1];
@@ -121,7 +122,7 @@ const checkNeighbors = (x,y) => {
     if (bottomLeft) {neighboringBombs++};
     if (below) {neighboringBombs++};
 
-    return console.log(neighboringBombs);
+    return neighboringBombs;
   } else if (x === board[0].length - 1 && y === board.length - 1) {
     // bottom right corner
     let topLeft = board[y - 1][x - 1];
@@ -132,19 +133,13 @@ const checkNeighbors = (x,y) => {
     if (topNeighbor) {neighboringBombs++};
     if (leftNeighbor) {neighboringBombs++};
 
-    return console.log(neighboringBombs);
+    return neighboringBombs;
   }
 };
-//
-checkNeighbors(3,3);
-// const topRightCorner = () => {
-//
-// }
-// I have to to make a new function to exclude any negative numbers or to exclude any numbers past highest index .length - 1;
-// for x it would be if x = 0 dont count anything to its left
-// if x .length - 1;
 
-// const replaceSpotPicked = (x, y) => {
-//   const numOfBombs = checkNeighbors(x,y);
-//   board[y][x] = numOfBombs;
-// }
+const replaceSpotPicked = (x, y) => {
+  const numOfBombs = checkNeighbors(x,y);
+  board[y][x] = numOfBombs;
+};
+replaceSpotPicked(0,3);
+console.log(board);
