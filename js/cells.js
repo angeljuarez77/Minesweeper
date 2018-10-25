@@ -175,15 +175,33 @@ const makeDOMBoard = (x,y) => {
 makeDOMBoard(board[0].length,board.length);
 
 const arrayOfParagraphs = document.getElementsByClassName('textDisplay');
-// the x and y values have to be the iterators inputter from the outside
-const insertValues = (x,y,z) => {
-  arrayOfParagraphs[z].innerHTML = board[y][x]
-}
 
-for (let z = 0; z < arrayOfParagraphs.length; z++) {
-  for (let y = 0; y < board.length; y++) {
-    for (let x = 0; x < board[0].length; x++) {
-        insertValues(x,y,z)
-    }
-  }
+
+const height = board.length;
+const width = board[0].length;
+const numOfItems = height * width;
+for(let i = 0; i < numOfItems; i++){
+  arrayOfParagraphs[i].id = `paragraph-number-${i}`;
 }
+// access the individual value in each of the items. Display into the individual arrayOfParagraphs
+// board[0][0] = paragraph-number-0
+// board[1][0] = 9
+// at every board[x] paragraph number increases by 9
+
+// board[y][x] = paragraph-number - (y * 9) + x;
+
+// c is the number of total items in my domBoard
+// a and b are the x and y axis respectively
+const assignValues = (a,b,c) => {
+
+    for(let y = 0; y < b; y++){
+        for(let x = 0; x < a; x++){
+            const numOfParagraph = ((y * 9) + x);
+            // arrayOfParagraphs[((y * 9) + x)].innerHTML =
+            let paragraph = document.getElementById(`paragraph-number-${numOfParagraph}`);
+            paragraph.innerHTML = board[y][x];
+        }
+    }
+
+}
+assignValues(board[0].length,board.length,arrayOfParagraphs.length);
