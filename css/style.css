@@ -1,6 +1,6 @@
 body{
   margin: 0;
-  background-color: #003333;
+  background-color: black;
 }
 .gameBoard{
   border: solid red;
@@ -8,14 +8,14 @@ body{
   margin: 0 auto;
 }
 .rows{
-  width: 452px;
-  height: 52px;
+  width: 678px;
+  height: 78px;
   border: solid white 1px;
   display: flex;
 }
 .columns{
-  width: 50px;
-  height: 50px;
+  width: 75px;
+  height: 75px;
   border: solid red 1px;
 }
 .textDisplay{

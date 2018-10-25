@@ -1,13 +1,13 @@
 const root = document.getElementById('root');
 const board = [
   [false, true, false, false, false, false, false, false, true],
-  [true, false, false, false, false, false, false, true, false],
+  [true, true, false, false, false, false, false, true, false],
   [false, true, false, false, false, false, false, false, false],
   [false, false, false, false, false, false, false, false, false],
   [false, false, true, false, false, false, false, false, false],
   [false, false, false, false, true, false, false, true, false],
   [false, false, false, false, false, false, false, false, false],
-  [false, false, false, false, false, false, true, true, true],
+  [false, false, false, false, false, false, true, false, true],
   [false, false, true, false, false, false, false, true, false]
 ];
 
@@ -145,12 +145,6 @@ for (let i = 0; i < board.length; i++) {
   };
 };
 
-console.log(board);
-// const pickRandomSpot = () => {
-// return board[Math.floor(Math.random() * board.length - 1) + 1][Math.floor(Math.random() * board[0].length - 1) + 1]
-// };
-
-
 const makeDOMBoard = (x,y) => {
 
   const domBoard = document.createElement('div');
@@ -183,25 +177,21 @@ const numOfItems = height * width;
 for(let i = 0; i < numOfItems; i++){
   arrayOfParagraphs[i].id = `paragraph-number-${i}`;
 }
-// access the individual value in each of the items. Display into the individual arrayOfParagraphs
-// board[0][0] = paragraph-number-0
-// board[1][0] = 9
-// at every board[x] paragraph number increases by 9
 
-// board[y][x] = paragraph-number - (y * 9) + x;
-
-// c is the number of total items in my domBoard
-// a and b are the x and y axis respectively
-const assignValues = (a,b,c) => {
-
-    for(let y = 0; y < b; y++){
-        for(let x = 0; x < a; x++){
-            const numOfParagraph = ((y * 9) + x);
-            // arrayOfParagraphs[((y * 9) + x)].innerHTML =
-            let paragraph = document.getElementById(`paragraph-number-${numOfParagraph}`);
-            paragraph.innerHTML = board[y][x];
-        }
-    }
+const assignValuesToBoard = (a,b,c) => {
+  for(let y = 0; y < b; y++){
+      for(let x = 0; x < a; x++){
+          const numOfParagraph = ((y * 9) + x);
+          // arrayOfParagraphs[((y * 9) + x)].innerHTML =
+          let paragraph = document.getElementById(`paragraph-number-${numOfParagraph}`);
+          paragraph.innerHTML = board[y][x];
+      }
+  }
+}
+// I need to go through each paragraph and then give it an x and y val (0 index)
+// loop through
+// at every iteration I 
+const giveDataValues = () => {
 
 }
-assignValues(board[0].length,board.length,arrayOfParagraphs.length);
+assignValuesToBoard(board[0].length,board.length,arrayOfParagraphs.length);
