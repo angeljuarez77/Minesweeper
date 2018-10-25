@@ -188,10 +188,18 @@ const assignValuesToBoard = (a,b,c) => {
       }
   }
 }
+// assignValuesToBoard(board[0].length,board.length,arrayOfParagraphs.length);
 // I need to go through each paragraph and then give it an x and y val (0 index)
-// loop through
-// at every iteration I 
+// loop through pargraph array
+//
+// at every iteration I
 const giveDataValues = () => {
-
+  for(let i = 0; i < arrayOfParagraphs.length; i++){
+    arrayOfParagraphs[i].dataset.x = `${i}`
+    arrayOfParagraphs[i].dataset.y = `${i}`
+  }
 }
-assignValuesToBoard(board[0].length,board.length,arrayOfParagraphs.length);
+giveDataValues()
+
+// access each column and on click make child node red
+const arrayOfColumns = document.getElementsByClassName('columns');
