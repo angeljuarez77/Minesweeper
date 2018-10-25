@@ -1,0 +1,26 @@
+body{
+  margin: 0;
+  background-color: #003333;
+}
+.gameBoard{
+  border: solid red;
+  width: min-content;
+  margin: 0 auto;
+}
+.rows{
+  width: 452px;
+  height: 52px;
+  border: solid white 1px;
+  display: flex;
+}
+.columns{
+  width: 50px;
+  height: 50px;
+  border: solid red 1px;
+}
+.textDisplay{
+  color: red;
+  font-size: 18pt;
+  text-align: center;
+  margin-bottom: 12px;
+}
