@@ -1,6 +1,6 @@
 const root = document.getElementById('root');
 const board = [
-  [false, false, false, false, false, false, false, false, false],
+  [true, false, false, false, false, false, false, false, false],
   [false, false, false, false, false, false, false, false, false],
   [false, false, false, false, false, false, false, false, false],
   [false, false, false, false, false, false, false, false, false],
@@ -10,15 +10,20 @@ const board = [
   [false, false, false, false, false, false, false, false, false],
   [false, false, false, false, false, false, false, false, false]
 ];
-const randomlyPopulate= () => {
-  const randomY = Math.floor(Math.random() * board.length) + 1;
-  const randomX = Math.floor(Math.random() * board.length) + 1;
+
+
+const randomlyPopulate = () => {
+  const randomY = Math.floor(Math.random() * board.length);
+  const randomX = Math.floor(Math.random() * board.length);
   board[randomY][randomX] = true;
-}
-for (var i = 0; i < 10; i++) {
-  randomlyPopulate;
-}
-console.log(board);
+  console.log(board);
+};
+for(let i = 0; i < 10; i++){
+  // debugger;
+  randomlyPopulate();
+};
+
+
 const checkNeighbors = (x,y) => {
   const isBomb = (x) => typeof x === "boolean" && x;
   let neighboringBombs = 0;
@@ -223,15 +228,9 @@ domBoard.addEventListener('click', e => {
   e.target.style.display = 'none';
 });
 
-// make a new 2d array of which ones have been opened
-// identify which one has been opened and pop it into the corresponding index of this board down here
-
 
 const emptyArray = Array.from({length: 9}, ()=> Array.from({length: 9}, ()=> false));
-// e.target.dataset.y
-// === board[y]
-// e.target.dataset.x
-// === board[y][x]
+
 const trackGame = (e) => {
   const yAxis = e.target.dataset.y;
   const xAxis = e.target.dataset.x;
@@ -257,3 +256,43 @@ const resetBoard = () => {
   }
 }
 domBoard.addEventListener('click', resetBoard);
+// Now I have to check if they won the game or not
+// count the number of trues in the board
+// count the number of falses on the opened board
+// if the number of falses equals the number of trues then they won
+const countMines = () => {
+  let mineCount = 0;
+  for(let i = 0; i < board.length; i++){
+    for(let j = 0; j < board[0].length; j++){
+      if(board[i][j] === true){
+        mineCount++
+      }
+    }
+  }
+  return mineCount;
+}
+
+const countBlocksLeft = () => {
+  let blocksLeft = 0;
+  for(let i = 0; i < emptyArray.length; i++){
+    for(let j = 0; j < emptyArray[0].length; j++){
+      if(emptyArray[i][j] === false){
+        blocksLeft++
+      }
+    }
+  }
+  return blocksLeft
+}
+
+const didTheyWin = () => {
+  let blocksLeft = countBlocksLeft();
+  const minesTotal = countMines();
+
+  if (blocksLeft === minesTotal) {
+    alert('YOU WON MENG');
+    document.location.reload();
+  }
+}
+
+domBoard.addEventListener('click', countBlocksLeft);
+domBoard.addEventListener('click', didTheyWin);
