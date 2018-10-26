@@ -1,16 +1,24 @@
 const root = document.getElementById('root');
 const board = [
-  [false, true, false, false, false, false, false, false, true],
-  [true, true, false, false, false, false, false, true, false],
-  [false, true, false, false, false, false, false, false, false],
   [false, false, false, false, false, false, false, false, false],
-  [false, false, true, false, false, false, false, false, false],
-  [false, false, false, false, true, false, false, true, false],
   [false, false, false, false, false, false, false, false, false],
-  [false, false, false, false, false, false, true, false, true],
-  [false, false, true, false, false, false, false, true, false]
+  [false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false]
 ];
-
+const randomlyPopulate= () => {
+  const randomY = Math.floor(Math.random() * board.length) + 1;
+  const randomX = Math.floor(Math.random() * board.length) + 1;
+  board[randomY][randomX] = true;
+}
+for (var i = 0; i < 10; i++) {
+  randomlyPopulate;
+}
+console.log(board);
 const checkNeighbors = (x,y) => {
   const isBomb = (x) => typeof x === "boolean" && x;
   let neighboringBombs = 0;
@@ -144,11 +152,11 @@ for (let i = 0; i < board.length; i++) {
     replaceSpotPicked(j,i)
   };
 };
-
+// this above just iterates through the board array and replaces the values
 const makeDOMBoard = (x,y) => {
 
   const domBoard = document.createElement('div');
-  domBoard.className = 'gameBoard';
+  domBoard.id = 'gameBoard';
   root.appendChild(domBoard);
 
   for(let rowCreator = 0; rowCreator < board.length; rowCreator++){
@@ -159,6 +167,12 @@ const makeDOMBoard = (x,y) => {
     for(let columnCreator = 0; columnCreator < x; columnCreator++){
       const newColumn = document.createElement('div');
       const newP = document.createElement('p');
+
+      const button = document.createElement('button');
+      button.dataset.x = `${columnCreator}`;
+      button.dataset.y = `${rowCreator}`
+      newColumn.appendChild(button);
+
       newP.className = 'textDisplay';
       newColumn.className = 'columns';
       newColumn.appendChild(newP);
@@ -188,11 +202,9 @@ const assignValuesToBoard = (a,b,c) => {
       }
   }
 }
-// assignValuesToBoard(board[0].length,board.length,arrayOfParagraphs.length);
-// I need to go through each paragraph and then give it an x and y val (0 index)
-// loop through pargraph array
-//
-// at every iteration I
+
+const buttons = document.getElementsByTagName('button');
+
 const giveDataValues = () => {
   for(let i = 0; i < arrayOfParagraphs.length; i++){
     arrayOfParagraphs[i].dataset.x = `${i}`
@@ -201,5 +213,47 @@ const giveDataValues = () => {
 }
 giveDataValues()
 
-// access each column and on click make child node red
-const arrayOfColumns = document.getElementsByClassName('columns');
+const domBoard = document.getElementById('gameBoard');
+domBoard.addEventListener('click', e => {
+  const y = e.target.dataset.y;
+  const x = e.target.dataset.x;
+  const clicked = board[parseInt(y)][parseInt(x)];
+  // console.log(e.target.nextSibling);
+  e.target.nextSibling.innerHTML = clicked;
+  e.target.style.display = 'none';
+});
+
+// make a new 2d array of which ones have been opened
+// identify which one has been opened and pop it into the corresponding index of this board down here
+
+
+const emptyArray = Array.from({length: 9}, ()=> Array.from({length: 9}, ()=> false));
+// e.target.dataset.y
+// === board[y]
+// e.target.dataset.x
+// === board[y][x]
+const trackGame = (e) => {
+  const yAxis = e.target.dataset.y;
+  const xAxis = e.target.dataset.x;
+
+  const jsClicked = board[parseInt(yAxis)][parseInt(xAxis)];
+  emptyArray[parseInt(yAxis)][parseInt(xAxis)] = jsClicked;
+};
+domBoard.addEventListener('click', trackGame)
+
+const gameStateCheck = () => {
+  for (var y = 0; y < emptyArray.length; y++) {
+    for (var x = 0; x < emptyArray[0].length; x++) {
+    if (emptyArray[y][x] === true) {
+      return true
+    }
+    }
+  }
+}
+const resetBoard = () => {
+  if (gameStateCheck()) {
+    alert('YOU DONE MESSED UP A-ARON')
+    document.location.reload()
+  }
+}
+domBoard.addEventListener('click', resetBoard);
