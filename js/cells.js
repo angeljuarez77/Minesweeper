@@ -1,6 +1,6 @@
 const root = document.getElementById('root');
 const board = [
-  [true, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false],
   [false, false, false, false, false, false, false, false, false],
   [false, false, false, false, false, false, false, false, false],
   [false, false, false, false, false, false, false, false, false],
@@ -16,10 +16,8 @@ const randomlyPopulate = () => {
   const randomY = Math.floor(Math.random() * board.length);
   const randomX = Math.floor(Math.random() * board.length);
   board[randomY][randomX] = true;
-  console.log(board);
 };
 for(let i = 0; i < 10; i++){
-  // debugger;
   randomlyPopulate();
 };
 
@@ -219,14 +217,15 @@ const giveDataValues = () => {
 giveDataValues()
 
 const domBoard = document.getElementById('gameBoard');
-domBoard.addEventListener('click', e => {
+const revealTile = e => {
   const y = e.target.dataset.y;
   const x = e.target.dataset.x;
   const clicked = board[parseInt(y)][parseInt(x)];
   // console.log(e.target.nextSibling);
   e.target.nextSibling.innerHTML = clicked;
   e.target.style.display = 'none';
-});
+}
+domBoard.addEventListener('click', revealTile);
 
 
 const emptyArray = Array.from({length: 9}, ()=> Array.from({length: 9}, ()=> false));
@@ -296,3 +295,12 @@ const didTheyWin = () => {
 
 domBoard.addEventListener('click', countBlocksLeft);
 domBoard.addEventListener('click', didTheyWin);
+
+
+// look at all checkNeighbors
+// open neighbors
+// if neighbor is empty then recursively check neighbors w the number coordinates
+// `document.querySelector("[data-x='${ x }'][data-y='${ y }']")`
+const openNeighbors = () => {
+  
+}
