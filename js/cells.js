@@ -46,7 +46,7 @@ const checkNeighbors = (x,y) => {
 
     return board[y][x] || neighboringBombs;
   } else if (x === 0 && y !== 0 && y !== board.length - 1) {
-    // left side no corner
+
     let topNeighbor = isBomb(board[y - 1][x]);
     let topRight = isBomb(board[y - 1][x + 1]);
     let rightNeighbor = isBomb(board[y][x + 1]);
@@ -155,7 +155,7 @@ for (let i = 0; i < board.length; i++) {
     replaceSpotPicked(j,i)
   };
 };
-// this above just iterates through the board array and replaces the values
+
 const makeDOMBoard = (x,y) => {
 
   const domBoard = document.createElement('div');
@@ -255,10 +255,7 @@ const resetBoard = () => {
   }
 }
 domBoard.addEventListener('click', resetBoard);
-// Now I have to check if they won the game or not
-// count the number of trues in the board
-// count the number of falses on the opened board
-// if the number of falses equals the number of trues then they won
+
 const countMines = () => {
   let mineCount = 0;
   for(let i = 0; i < board.length; i++){
@@ -295,12 +292,3 @@ const didTheyWin = () => {
 
 domBoard.addEventListener('click', countBlocksLeft);
 domBoard.addEventListener('click', didTheyWin);
-
-
-// look at all checkNeighbors
-// open neighbors
-// if neighbor is empty then recursively check neighbors w the number coordinates
-// `document.querySelector("[data-x='${ x }'][data-y='${ y }']")`
-const openNeighbors = () => {
-  
-}
