@@ -6,7 +6,7 @@ const createBoard = (width, height) => {
 
 const randomlyPopulate = (board) => {
   const randomY = Math.floor(Math.random() * board.length);
-  const randomX = Math.floor(Math.random() * board.length);
+  const randomX = Math.floor(Math.random() * board[0].length);
   board[randomY][randomX] = true;
 };
 
@@ -25,12 +25,17 @@ const bombPlacement = (board, number) => {
 
   if(acceptableNumber()){
     for (let i = 0; i < number; i++) {
-      randomlyPopulate();
+      randomlyPopulate(board);
     };
   } else {
     return notValid();
   };
 };
+
+let gameBoard = createBoard(12, 8);
+bombPlacement(gameBoard, 14);
+console.log(gameBoard[0])
+console.log(gameBoard, 'game board after running random population')
 
 const neighborChecks = (board, e) => {
   const yCoordinate = e.target.dataset.y;
@@ -215,14 +220,14 @@ const trackGame = (e) => {
 };
 domBoard.addEventListener('click', trackGame)
 
-const gameStateCheck = () => {
-  for (var y = 0; y < emptyArray.length; y++) {r (var x = 0; x < emptyArray[0].length; x++) {
-    if (emptyArray[y][x] === true) {
-      return true
-    }
-    }
-  }
-}
+//const gameStateCheck = () => {
+  //for (var y = 0; y < emptyArray.length; y++) { (var x = 0; x < emptyArray[0].length; x++) {
+    //if (emptyArray[y][x] === true) {
+      //return true
+    //}
+    //}
+  //}
+//}
 const resetBoard = () => {
   if (gameStateCheck()) {
     alert('YOU DONE MESSED UP A-ARON')
