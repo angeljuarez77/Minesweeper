@@ -10,8 +10,20 @@ const randomlyPopulate = (board) => {
   board[randomY][randomX] = true;
 };
 
-for(let i = 0; i < 10; i++){
-  randomlyPopulate();
+const bombPlacement = (board, number) => {
+  function acceptableNumber(){
+    if (number > board.length * board[0].length) {
+      return false;
+    };
+
+    return true;
+  };
+
+  if(acceptableNumber()){
+    for (let i = 0; i < number; i++) {
+      randomlyPopulate();
+    };
+  };
 };
 
 
