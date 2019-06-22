@@ -23,6 +23,8 @@ const bombPlacement = (board, number) => {
     for (let i = 0; i < number; i++) {
       randomlyPopulate();
     };
+  } else {
+    return false;
   };
 };
 
