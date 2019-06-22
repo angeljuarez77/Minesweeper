@@ -1,21 +1,8 @@
 const root = document.getElementById('root');
+
 const createBoard = (width, height) => {
   return Array.from({length: height}, ()=> Array.from({length: width}, ()=> false)) 
 };
-const testBoard = createBoard(12, 10);
-console.log(testBoard);
-const board = [
-  [false, false, false, false, false, false, false, false, false],
-  [false, false, false, false, false, false, false, false, false],
-  [false, false, false, false, false, false, false, false, false],
-  [false, false, false, false, false, false, false, false, false],
-  [false, false, false, false, false, false, false, false, false],
-  [false, false, false, false, false, false, false, false, false],
-  [false, false, false, false, false, false, false, false, false],
-  [false, false, false, false, false, false, false, false, false],
-  [false, false, false, false, false, false, false, false, false]
-];
-
 
 const randomlyPopulate = () => {
   const randomY = Math.floor(Math.random() * board.length);
