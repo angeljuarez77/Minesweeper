@@ -19,15 +19,107 @@ const bombPlacement = (board, number) => {
     return true;
   };
 
+  function notValid(){
+    alert('THAT IS NOT AN ACCEPTABLE NUMBER OF MINES');
+  };
+
   if(acceptableNumber()){
     for (let i = 0; i < number; i++) {
       randomlyPopulate();
     };
   } else {
-    return false;
+    return notValid();
   };
 };
 
+const neighborChecks = (board, e) => {
+  const yCoordinate = e.target.dataset.y;
+  const xCoordinate = e.target.dataset.x;
+  let bombNumbers = 0;
+
+  const locations = {
+    isValid: (function(squareType){
+      if(typeof squareType === 'undefined'){
+        return false;
+      };
+
+      return true;
+    }),
+    topLeft: (function(){
+      const type = typeof board[y - 1][x - 1];
+      if(this.isValid(type)){
+        return 1; 
+      };
+
+      return 0;
+    }),
+    topNeighbor: (function(){
+      const type = typeof board[y - 1][x];
+      if(this.isValid(type)){
+        return 1; 
+      };
+
+      return 0;
+    }),
+    topRight: (function(){
+      const type = typeof board[y - 1][x + 1];
+      if(this.isValid(type)){
+        return 1; 
+      };
+
+      return 0;
+    }),
+    leftNeighbor: (function(){
+      const type = typeof board[y][x - 1];
+      if(this.isValid(type)){
+        return 1; 
+      };
+
+      return 0;
+    }),
+    rightNeighbor: (function(){
+      const type = typeof board[y][x + 1];
+      if(this.isValid(type)){
+        return 1; 
+      };
+
+      return 0; 
+    }),
+    bottomLeft: (function(){
+      const type = typeof board[y + 1][x - 1];
+      if(this.isValid(type)){
+        return 1; 
+      };
+
+      return 0;
+    }),
+    bottom: (function(){
+      const type = typeof board[y + 1][x];
+      if(this.isValid(type)){
+        return 1; 
+      };
+
+      return 0;
+    }),
+    bottomRight: (function(){
+      const type = typeof board[y + 1][x + 1];
+      if(this.isValid(type)){
+        return 1; 
+      };
+
+      return 0;
+    }),
+  };
+
+  function count(){
+    let key;
+    for (key in locations){
+      bombNumbers += locations[key];
+    };
+  };
+
+  return bombNumbers;
+};
 
 const checkNeighbors = (x,y) => {
   const isBomb = (x) => typeof x === "boolean" && x;
@@ -247,8 +339,7 @@ const trackGame = (e) => {
 domBoard.addEventListener('click', trackGame)
 
 const gameStateCheck = () => {
-  for (var y = 0; y < emptyArray.length; y++) {
-    for (var x = 0; x < emptyArray[0].length; x++) {
+  for (var y = 0; y < emptyArray.length; y++) {r (var x = 0; x < emptyArray[0].length; x++) {
     if (emptyArray[y][x] === true) {
       return true
     }
