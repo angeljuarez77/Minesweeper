@@ -4,11 +4,12 @@ const createBoard = (width, height) => {
   return Array.from({length: height}, ()=> Array.from({length: width}, ()=> false)) 
 };
 
-const randomlyPopulate = () => {
+const randomlyPopulate = (board) => {
   const randomY = Math.floor(Math.random() * board.length);
   const randomX = Math.floor(Math.random() * board.length);
   board[randomY][randomX] = true;
 };
+
 for(let i = 0; i < 10; i++){
   randomlyPopulate();
 };
