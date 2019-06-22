@@ -5,6 +5,7 @@ const createBoard = (width, height) => {
 };
 
 const randomlyPopulate = (board) => {
+  // have to change this function so that it never places a bomb in the same place twice
   const randomY = Math.floor(Math.random() * board.length);
   const randomX = Math.floor(Math.random() * board[0].length);
   board[randomY][randomX] = true;
@@ -32,16 +33,18 @@ const bombPlacement = (board, number) => {
   };
 };
 
+// for testing purposes only
 let gameBoard = createBoard(12, 8);
 bombPlacement(gameBoard, 14);
-console.log(gameBoard[0])
 console.log(gameBoard, 'game board after running random population')
+// for testing purposes only
 
 const neighborChecks = (board, e) => {
   const yCoordinate = e.target.dataset.y;
   const xCoordinate = e.target.dataset.x;
   let bombNumbers = 0;
 
+  // I still have to check if this works or not    
   const locations = {
     isValid: (function(squareType){
       if(typeof squareType === 'undefined'){
@@ -126,6 +129,7 @@ const neighborChecks = (board, e) => {
   return bombNumbers;
 };
 
+// below here nothing was touched to begin the fixing process
 const replaceSpotPicked = (x, y) => {
   const numOfBombs = checkNeighbors(x,y);
   board[y][x] = numOfBombs;
