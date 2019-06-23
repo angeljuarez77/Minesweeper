@@ -9,8 +9,6 @@ body{
   margin: 0 auto;
 }
 .rows{
-  width: 678px;
-  height: 78px;
   border: solid white 1px;
   display: flex;
 }
