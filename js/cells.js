@@ -1,7 +1,7 @@
 const root = document.getElementById('root');
 
 const createBoard = (width, height) => {
-  return Array.from({length: height}, ()=> Array.from({length: width}, ()=> false)) 
+  return Array.from({length: height}, ()=> Array.from({length: width}, ()=> false));
 };
 
 const randomlyPopulate = (board) => {
@@ -33,11 +33,6 @@ const bombPlacement = (board, number) => {
   };
 };
 
-// for testing purposes only
-let gameBoard = createBoard(12, 8);
-bombPlacement(gameBoard, 14);
-console.log(gameBoard, 'game board after running random population')
-// for testing purposes only
 
 const neighborChecks = (board, e) => {
   const yCoordinate = e.target.dataset.y;
@@ -46,13 +41,13 @@ const neighborChecks = (board, e) => {
 
   // I still have to check if this works or not    
   const locations = {
-    isValid: (function(squareType){
+    isValid: function(squareType){
       if(typeof squareType === 'undefined'){
         return false;
       };
 
       return true;
-    }),
+    },
     topLeft: (function(){
       const type = typeof board[y - 1][x - 1];
       if(this.isValid(type)){
@@ -60,7 +55,7 @@ const neighborChecks = (board, e) => {
       };
 
       return 0;
-    }),
+    })(),
     topNeighbor: (function(){
       const type = typeof board[y - 1][x];
       if(this.isValid(type)){
@@ -68,7 +63,7 @@ const neighborChecks = (board, e) => {
       };
 
       return 0;
-    }),
+    })(),
     topRight: (function(){
       const type = typeof board[y - 1][x + 1];
       if(this.isValid(type)){
@@ -76,7 +71,7 @@ const neighborChecks = (board, e) => {
       };
 
       return 0;
-    }),
+    })(),
     leftNeighbor: (function(){
       const type = typeof board[y][x - 1];
       if(this.isValid(type)){
@@ -84,7 +79,7 @@ const neighborChecks = (board, e) => {
       };
 
       return 0;
-    }),
+    })(),
     rightNeighbor: (function(){
       const type = typeof board[y][x + 1];
       if(this.isValid(type)){
@@ -92,7 +87,7 @@ const neighborChecks = (board, e) => {
       };
 
       return 0; 
-    }),
+    })(),
     bottomLeft: (function(){
       const type = typeof board[y + 1][x - 1];
       if(this.isValid(type)){
@@ -100,7 +95,7 @@ const neighborChecks = (board, e) => {
       };
 
       return 0;
-    }),
+    })(),
     bottom: (function(){
       const type = typeof board[y + 1][x];
       if(this.isValid(type)){
@@ -108,7 +103,7 @@ const neighborChecks = (board, e) => {
       };
 
       return 0;
-    }),
+    })(),
     bottomRight: (function(){
       const type = typeof board[y + 1][x + 1];
       if(this.isValid(type)){
@@ -116,7 +111,7 @@ const neighborChecks = (board, e) => {
       };
 
       return 0;
-    }),
+    })(),
   };
 
   function count(){
@@ -129,19 +124,18 @@ const neighborChecks = (board, e) => {
   return bombNumbers;
 };
 
-// below here nothing was touched to begin the fixing process
-const replaceSpotPicked = (x, y) => {
-  const numOfBombs = checkNeighbors(x,y);
-  board[y][x] = numOfBombs;
-};
+// const replaceSpotPicked = (x, y) => {
+//   const numOfBombs = checkNeighbors(x,y);
+//   board[y][x] = numOfBombs;
+// };
+// 
+// for (let i = 0; i < board.length; i++) {
+//   for (var j = 0; j < board[i].length; j++) {
+//     replaceSpotPicked(j,i)
+//   };
+// };
 
-for (let i = 0; i < board.length; i++) {
-  for (var j = 0; j < board[i].length; j++) {
-    replaceSpotPicked(j,i)
-  };
-};
-
-const makeDOMBoard = (x,y) => {
+const makeDOMBoard = board => {
 
   const domBoard = document.createElement('div');
   domBoard.id = 'gameBoard';
@@ -152,7 +146,7 @@ const makeDOMBoard = (x,y) => {
     newRow.className = 'rows';
     domBoard.appendChild(newRow);
 
-    for(let columnCreator = 0; columnCreator < x; columnCreator++){
+    for(let columnCreator = 0; columnCreator < board[0].length; columnCreator++){
       const newColumn = document.createElement('div');
       const newP = document.createElement('p');
 
@@ -165,13 +159,12 @@ const makeDOMBoard = (x,y) => {
       newColumn.className = 'columns';
       newColumn.appendChild(newP);
       newRow.appendChild(newColumn);
-    }
-  }
-}
-makeDOMBoard(board[0].length,board.length);
+    };
+  };
+};
+makeDOMBoard(createBoard(8, 8));
 
 const arrayOfParagraphs = document.getElementsByClassName('textDisplay');
-
 
 const height = board.length;
 const width = board[0].length;
