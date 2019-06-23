@@ -33,10 +33,15 @@ const bombPlacement = (board, number) => {
   };
 };
 
+const clicked = e => {
+  return [e.target.dataset.y, e.target.dataset.x];
+};
 
-const neighborChecks = (board, e) => {
+const neighborChecks = (e, board) => {
+  console.log(e);
   const yCoordinate = e.target.dataset.y;
   const xCoordinate = e.target.dataset.x;
+  console.log(yCoordinate, xCoordinate);
   let bombNumbers = 0;
 
   // I still have to check if this works or not    
@@ -124,17 +129,6 @@ const neighborChecks = (board, e) => {
   return bombNumbers;
 };
 
-// const replaceSpotPicked = (x, y) => {
-//   const numOfBombs = checkNeighbors(x,y);
-//   board[y][x] = numOfBombs;
-// };
-// 
-// for (let i = 0; i < board.length; i++) {
-//   for (var j = 0; j < board[i].length; j++) {
-//     replaceSpotPicked(j,i)
-//   };
-// };
-
 const makeDOMBoard = board => {
 
   const domBoard = document.createElement('div');
@@ -162,7 +156,11 @@ const makeDOMBoard = board => {
     };
   };
 };
-makeDOMBoard(createBoard(8, 8));
+
+const newBoard = createBoard(12, 8);
+randomlyPopulate(newBoard, 12);
+makeDOMBoard(newBoard);
+// document.getElementById('gameBoard').addEventListener('click', (e) => neighborChecks(e, newBoard));
 
 const arrayOfParagraphs = document.getElementsByClassName('textDisplay');
 
